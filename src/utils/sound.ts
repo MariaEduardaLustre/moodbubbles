@@ -18,7 +18,6 @@ function initBubblePopAudio(): HTMLAudioElement | null {
     
     return bubblePopAudio;
   } catch (error) {
-    // Mantemos este 'error' pois a variável é implícita aqui, mas o retorno é null
     return null;
   }
 }
@@ -125,7 +124,7 @@ function playBubblePopSoundGenerated(): void {
     thumpOsc.start(now);
     thumpOsc.stop(now + 0.05);
     
-  } catch { // CORREÇÃO 1: 'error' não utilizado removido
+  } catch { // Correção de TS6133 anterior
     console.log('Audio não disponível');
   }
 }
@@ -139,7 +138,7 @@ export function playBubblePopSound(): void {
     try {
       // Reseta o áudio para o início e toca
       audio.currentTime = 0;
-      audio.play().catch((error) => {
+      audio.play().catch(() => { // <--- CORREÇÃO APLICADA AQUI (LINHA 142 NO ARQUIVO ORIGINAL)
         // Se falhar ao tocar (ex: autoplay bloqueado), usa o som gerado
         console.log('Não foi possível tocar o MP3, usando som gerado');
         playBubblePopSoundGenerated();
@@ -185,7 +184,7 @@ export function playEndSound(): void {
       oscillator.stop(startTime + 0.3);
     });
     
-  } catch { // CORREÇÃO 2: 'error' não utilizado removido
+  } catch { // Correção de TS6133 anterior
     console.log('Audio não disponível');
   }
 }
