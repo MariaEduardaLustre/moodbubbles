@@ -13,12 +13,11 @@ export const WaterDrop: React.FC<WaterDropProps> = ({ drop, onRemove }) => {
     if (!dropRef.current) return;
 
     const element = dropRef.current;
-    const startX = drop.x;
-    const startY = drop.y;
+    
+  
     
     // Animação da gota espirrando (trajetória arqueada como se estivesse voando)
-    const distance = Math.sqrt(drop.velocityX * drop.velocityX + drop.velocityY * drop.velocityY);
-    const maxDistance = distance * 120; // Distância maior para parecer que está voando
+    
     
     const animation = element.animate(
       [

@@ -18,6 +18,7 @@ function initBubblePopAudio(): HTMLAudioElement | null {
     
     return bubblePopAudio;
   } catch (error) {
+    // Mantemos este 'error' pois a variável é implícita aqui, mas o retorno é null
     return null;
   }
 }
@@ -124,7 +125,7 @@ function playBubblePopSoundGenerated(): void {
     thumpOsc.start(now);
     thumpOsc.stop(now + 0.05);
     
-  } catch (error) {
+  } catch { // CORREÇÃO 1: 'error' não utilizado removido
     console.log('Audio não disponível');
   }
 }
@@ -184,8 +185,7 @@ export function playEndSound(): void {
       oscillator.stop(startTime + 0.3);
     });
     
-  } catch (error) {
+  } catch { // CORREÇÃO 2: 'error' não utilizado removido
     console.log('Audio não disponível');
   }
 }
-
