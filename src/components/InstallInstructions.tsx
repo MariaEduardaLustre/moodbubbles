@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 
-export const InstallInstructions: React.FC = () => {
+// NOVO: Adicionando a interface para receber a prop de controle
+interface InstallInstructionsProps {
+  isGameActive: boolean;
+}
+
+// O componente agora recebe 'isGameActive'
+export const InstallInstructions: React.FC<InstallInstructionsProps> = ({ isGameActive }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isIOS, setIsIOS] = useState(false);
   const [isAndroid, setIsAndroid] = useState(false);
@@ -12,6 +18,11 @@ export const InstallInstructions: React.FC = () => {
     setIsAndroid(/android/i.test(userAgent));
   }, []);
 
+  // NOVO: Renderização Condicional - Se o jogo estiver ativo, não renderize nada
+  if (isGameActive) {
+    return null;
+  }
+  
   if (!isOpen) {
     return (
       <button
@@ -175,4 +186,3 @@ export const InstallInstructions: React.FC = () => {
     </div>
   );
 };
-

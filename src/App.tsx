@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { HomeScreen } from './components/HomeScreen';
 import { GameScreen } from './components/GameScreen';
 import { EndScreen } from './components/EndScreen';
+import { InstallInstructions } from './components/InstallInstructions'; // Importação do componente
 import { Mood, GameMode } from './types';
 
 type Screen = 'home' | 'game' | 'end';
@@ -37,6 +38,9 @@ function App() {
     // Permanece na tela de jogo, mas reseta tudo
   };
 
+  // Variável de controle: o jogo está ativo se a tela for 'game'
+  const isGameActive = screen === 'game';
+
   return (
     <>
       {screen === 'home' && (
@@ -67,9 +71,11 @@ function App() {
           onBackToHome={handleBackToHome}
         />
       )}
+      
+      {/* NOVO: Passando a prop de visibilidade para o componente */}
+      <InstallInstructions isGameActive={isGameActive} /> 
     </>
   );
 }
 
 export default App;
-
